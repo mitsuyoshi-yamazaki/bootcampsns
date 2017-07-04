@@ -9,3 +9,15 @@ set :pty, true
 
 # append :linked_files, "config/database.yml", "config/secrets.yml"
 # append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
+
+task :create_database do
+  on fetch(:migration_servers) do
+    within release_path do
+      with rails_env: fetch(:rails_env) do
+        execute :rake, 'db:create'
+      end
+    end
+  end
+end
+
+before 'deploy:migrate', 'create_database'
