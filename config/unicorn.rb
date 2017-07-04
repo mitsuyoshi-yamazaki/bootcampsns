@@ -1,11 +1,16 @@
 worker_processes 2
-working_directory '/var/www/app/sns/'
-listen '/var/www/app/sns/tmp/sockets/unicorn.sock'
-pid    'tmp/pids/unicorn.pid'
+app_path = '/home/apprunner/bootcampsns'
+working_directory "#{app_path}/current"
+pid "#{app_path}/shared/tmp/pids/unicorn.pid"
+listen "#{app_path}/shared/tmp/sockets/unicorn.sock"
 stderr_path 'log/unicorn.std.log'
 stdout_path 'log/unicorn.err.log'
+
+before_exec do |server|
+  ENV['BUNDLE_GEMFILE'] = "#{app_path}/current/Gemfile"
+end
+
 preload_app true
-user 'www-data', 'www-data'
 
 before_fork do |server, worker|
   defined?(ActiveRecord::Base) and ActiveRecord::Base.connection.disconnect!

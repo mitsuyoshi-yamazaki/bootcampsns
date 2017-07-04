@@ -21,3 +21,10 @@ task :create_database do
 end
 
 before 'deploy:migrate', 'create_database'
+
+namespace :deploy do
+  task :restart do
+    invoke 'unicorn:restart'
+  end
+end
+after 'deploy:publishing', 'deploy:restart'
