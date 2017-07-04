@@ -8,7 +8,7 @@ set :deploy_to, "/home/apprunner/bootcampsns"
 set :pty, true
 
 # append :linked_files, "config/database.yml", "config/secrets.yml"
-# append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
+append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets"
 
 task :create_database do
   on fetch(:migration_servers) do
