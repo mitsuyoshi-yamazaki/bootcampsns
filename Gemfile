@@ -33,6 +33,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'capistrano-rails'
+  gem 'capistrano3-unicorn'
   gem 'rbnacl', '< 5.0', '>= 3.2'
   gem 'rbnacl-libsodium'
   gem 'bcrypt_pbkdf', '< 2.0', '>= 1.0'
