@@ -22,6 +22,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'rmagick'
 
+gem 'config'
+
 group :production do
   # Use Unicorn as the app server
   gem 'unicorn'
