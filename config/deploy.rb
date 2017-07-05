@@ -8,6 +8,7 @@ set :deploy_to, "/home/apprunner/bootcampsns"
 set :pty, true
 
 # append :linked_files, "config/database.yml", "config/secrets.yml"
+append :linked_files, 'config/settings.local.yml'
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/icons", "public/images"
 
 task :create_database do
