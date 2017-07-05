@@ -1,3 +1,6 @@
+require 'rubygems'
+require 'RMagick'
+
 class IconsController < ApplicationController
 
   def create
@@ -8,8 +11,9 @@ class IconsController < ApplicationController
       image_path = "#{Rails.root}/public/icons/#{dest_file_name}"
       FileUtils.mv image_params(params).tempfile, image_path
       FileUtils.chmod 0644, image_path
-      if px = resize_max_pixel_params(params)
-        `convert -resize #{px}x#{px} #{image_path} #{image_path}` # ImageMagickで画像をリサイズ
+      if px = resize_max_pixel_params(params).to_i
+        original = Magick::Image.read(image_path).first
+        original.resize(px, px).write(image_path)
       end
       render json: {file_name: dest_file_name} and return
     else
