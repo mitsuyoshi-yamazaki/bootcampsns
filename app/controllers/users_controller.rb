@@ -3,12 +3,12 @@ class UsersController < ApplicationController
   before_action :reject_non_admin_user, only: [:manage]
 
   def create
-    @user = User.create params[:user]
-    render json: {errors: @user.errors.full_messages}, status: :bad_request and return if @user.errors.any?
+    @user = User.create user_params params
+    render json: { errors: @user.errors.full_messages }, status: :bad_request and return if @user.errors.any?
 
     @user = User.find_by user: @user.user
     log_in @user
-    render json: {name: @user.name, icon: icon_user_path(@user)} and return
+    render json: { name: @user.name, icon: icon_user_path(@user) } and return
   end
 
   def icon
@@ -22,5 +22,11 @@ class UsersController < ApplicationController
 
   def manage
     @users = User.all
+  end
+
+  private
+
+  def user_params params
+    params.require(:user).permit(:user, :pass, :name, :icon_file_name)
   end
 end
