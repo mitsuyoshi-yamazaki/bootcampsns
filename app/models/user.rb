@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   validates :user, presence: true, length: {maximum: 20}, format: {with: /\A[\x20-\x7f]+\z/}, uniqueness: true 
   validates :name, presence: true, length: {maximum: 20}
   validates :pass, presence: true
+  validates :icon_file_name, format: {with: /\A(|[\w\\.-]+)\z/}
 
   before_save :strip_whitespace
   def strip_whitespace
