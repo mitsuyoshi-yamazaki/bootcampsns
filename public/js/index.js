@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cf.getElementById('content').textContent = feeds[i].comment;
       } else {
         // 画像フィードの場合
-        let caption = (feeds[i].exif.length > 1) ? `${feeds[i].exif}にて撮影` : '';
+        let caption = (feeds[i].exif.length > 1) ? `${escape_html(feeds[i].exif)}にて撮影` : '';
         cf.getElementById('content').innerHTML = `
           <img class='img-responsive img-thumbnail' src='/images/${feeds[i].image_file_name}'>
           <br><small class='exif'>${caption}</small>`;
@@ -188,5 +188,25 @@ document.addEventListener('DOMContentLoaded', () => {
       fragment.appendChild(cf);
     }
     return fragment;
+  }
+
+  function escape_html (string) {
+    if(string.indexOf("<") !== -1) {
+      alert("だが断る")
+    }
+
+    if(typeof string !== 'string') {
+        return string;
+    }
+    return string.replace(/[&'`"<>]/g, function(match) {
+        return {
+            '&': '&amp;',
+            "'": '&#x27;',
+            '`': '&#x60;',
+            '"': '&quot;',
+            '<': '&lt;',
+            '>': '&gt;',
+        }[match]
+    });
   }
 });
