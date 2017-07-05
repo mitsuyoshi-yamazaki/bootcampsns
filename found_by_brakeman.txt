@@ -1,0 +1,58 @@
+
++BRAKEMAN REPORT+
+
+Application path: /Users/mitsuyoshi.yamazaki/Documents/projects/bootcampsns
+Rails version: 4.2.8
+Brakeman version: 3.7.0
+Started at 2017-07-05 10:52:56 +0900
+Duration: 0.262195 seconds
+Checks run: BasicAuth, BasicAuthTimingAttack, ContentTag, CreateWith, CrossSiteScripting, DefaultRoutes, Deserialize, DetailedExceptions, DigestDoS, DynamicFinders, EscapeFunction, Evaluation, Execute, FileAccess, FileDisclosure, FilterSkipping, ForgerySetting, HeaderDoS, I18nXSS, JRubyXML, JSONEncoding, JSONParsing, LinkTo, LinkToHref, MailTo, MassAssignment, MimeTypeDoS, ModelAttrAccessible, ModelAttributes, ModelSerialize, NestedAttributes, NestedAttributesBypass, NumberToCurrency, QuoteTableName, Redirect, RegexDoS, Render, RenderDoS, RenderInline, ResponseSplitting, RouteDoS, SQL, SQLCVEs, SSLVerify, SafeBufferManipulation, SanitizeMethods, SelectTag, SelectVulnerability, Send, SendFile, SessionManipulation, SessionSettings, SimpleFormat, SingleQuotes, SkipBeforeFilter, StripTags, SymbolDoSCVE, TranslateBug, UnsafeReflection, ValidationRegex, WithoutProtection, XMLDoS, YAMLParsing
+
+
++SUMMARY+
+
++-------------------+-------+
+| Scanned/Reported  | Total |
++-------------------+-------+
+| Controllers       | 6     |
+| Models            | 3     |
+| Templates         | 2     |
+| Errors            | 0     |
+| Security Warnings | 9 (5) |
++-------------------+-------+
+
++----------------------------+-------+
+| Warning Type               | Total |
++----------------------------+-------+
+| Command Injection          | 1     |
+| Cross-Site Request Forgery | 1     |
+| File Access                | 2     |
+| SQL Injection              | 4     |
+| Session Setting            | 1     |
++----------------------------+-------+
+
+
++SECURITY WARNINGS+
+
++------------+--------------------+----------+-------------------+-------------------------------------------->>
+| Confidence | Class              | Method   | Warning Type      | Message                                    >>
++------------+--------------------+----------+-------------------+-------------------------------------------->>
+| High       | IconsController    | create   | Command Injection | Possible command injection near line 12: `c>>
+| High       | IconsController    | create   | File Access       | Parameter value used in file name near line>>
+| High       | SessionsController | create   | SQL Injection     | Possible SQL injection near line 6: User.fi>>
+| High       |                    |          | Session Setting   | Session secret should not be included in ve>>
+| Medium     | UsersController    | icon     | File Access       | Model attribute used in file name near line>>
+| Medium     | FeedsController    | index    | SQL Injection     | Possible SQL injection near line 29: Feed.j>>
+| Medium     | FeedsController    | find_new | SQL Injection     | Possible SQL injection near line 34: Feed.j>>
+| Medium     | FeedsController    | find_old | SQL Injection     | Possible SQL injection near line 40: Feed.j>>
++------------+--------------------+----------+-------------------+-------------------------------------------->>
+
+
+Controller Warnings:
+
++------------+-----------------------+----------------------------+------------------------------------------->>
+| Confidence | Controller            | Warning Type               | Message                                   >>
++------------+-----------------------+----------------------------+------------------------------------------->>
+| High       | ApplicationController | Cross-Site Request Forgery | 'protect_from_forgery' should be called in>>
++------------+-----------------------+----------------------------+------------------------------------------->>
+
