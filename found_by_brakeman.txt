@@ -4,8 +4,8 @@
 Application path: /Users/mitsuyoshi.yamazaki/Documents/projects/bootcampsns
 Rails version: 4.2.8
 Brakeman version: 3.7.0
-Started at 2017-07-05 16:09:42 +0900
-Duration: 0.357765 seconds
+Started at 2017-07-05 16:49:06 +0900
+Duration: 0.269391 seconds
 Checks run: BasicAuth, BasicAuthTimingAttack, ContentTag, CreateWith, CrossSiteScripting, DefaultRoutes, Deserialize, DetailedExceptions, DigestDoS, DynamicFinders, EscapeFunction, Evaluation, Execute, FileAccess, FileDisclosure, FilterSkipping, ForgerySetting, HeaderDoS, I18nXSS, JRubyXML, JSONEncoding, JSONParsing, LinkTo, LinkToHref, MailTo, MassAssignment, MimeTypeDoS, ModelAttrAccessible, ModelAttributes, ModelSerialize, NestedAttributes, NestedAttributesBypass, NumberToCurrency, QuoteTableName, Redirect, RegexDoS, Render, RenderDoS, RenderInline, ResponseSplitting, RouteDoS, SQL, SQLCVEs, SSLVerify, SafeBufferManipulation, SanitizeMethods, SelectTag, SelectVulnerability, Send, SendFile, SessionManipulation, SessionSettings, SimpleFormat, SingleQuotes, SkipBeforeFilter, StripTags, SymbolDoSCVE, TranslateBug, UnsafeReflection, ValidationRegex, WithoutProtection, XMLDoS, YAMLParsing
 
 
@@ -18,7 +18,7 @@ Checks run: BasicAuth, BasicAuthTimingAttack, ContentTag, CreateWith, CrossSiteS
 | Models            | 3     |
 | Templates         | 2     |
 | Errors            | 0     |
-| Security Warnings | 7 (2) |
+| Security Warnings | 6 (1) |
 +-------------------+-------+
 
 +----------------------------+-------+
@@ -26,22 +26,21 @@ Checks run: BasicAuth, BasicAuthTimingAttack, ContentTag, CreateWith, CrossSiteS
 +----------------------------+-------+
 | Cross-Site Request Forgery | 1     |
 | File Access                | 2     |
-| SQL Injection              | 4     |
+| SQL Injection              | 3     |
 +----------------------------+-------+
 
 
 +SECURITY WARNINGS+
 
-+------------+--------------------+----------+---------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Confidence | Class              | Method   | Warning Type  | Message                                                                                                                                                                                                                     |
-+------------+--------------------+----------+---------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| High       | SessionsController | create   | SQL Injection | Possible SQL injection near line 6: User.find_by("user='#{+params[:user]+}' and pass='#{Digest::MD5.hexdigest(params[:pass])}'")                                                                                            |
-| Medium     | UsersController    | icon     | File Access   | Model attribute used in file name near line 17: File.read("#{Rails.root}/public/icons/#{+User.find(params[:id])[:icon_file_name]+}", :disposition => "inline")                                                              |
-| Medium     | FeedsController    | index    | SQL Injection | Possible SQL injection near line 29: Feed.joins(:user).where("user_id IN (#{+scope_user_ids.join(", ")+})")                                                                                                                 |
-| Medium     | FeedsController    | find_new | SQL Injection | Possible SQL injection near line 34: Feed.joins(:user).where("user_id IN (#{+scope_user_ids.join(", ")+}) and feeds.id > ?", params[:id].to_i)                                                                              |
-| Medium     | FeedsController    | find_old | SQL Injection | Possible SQL injection near line 40: Feed.joins(:user).where("user_id IN (#{+scope_user_ids.join(", ")+}) and feeds.id < ?", params[:id].to_i)                                                                              |
-| Weak       | IconsController    | create   | File Access   | Parameter value used in file name near line 13: FileUtils.mv(image_+params+(+params+).tempfile, "#{Rails.root}/public/icons/#{"#{SecureRandom.uuid}#{File.extname(image_+params+(+params+).original_filename.downcase)}"}") |
-+------------+--------------------+----------+---------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++------------+-----------------+----------+---------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Confidence | Class           | Method   | Warning Type  | Message                                                                                                                                                                                                                     |
++------------+-----------------+----------+---------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Medium     | UsersController | icon     | File Access   | Model attribute used in file name near line 17: File.read("#{Rails.root}/public/icons/#{+User.find(params[:id])[:icon_file_name]+}", :disposition => "inline")                                                              |
+| Medium     | FeedsController | index    | SQL Injection | Possible SQL injection near line 29: Feed.joins(:user).where("user_id IN (#{+scope_user_ids.join(", ")+})")                                                                                                                 |
+| Medium     | FeedsController | find_new | SQL Injection | Possible SQL injection near line 34: Feed.joins(:user).where("user_id IN (#{+scope_user_ids.join(", ")+}) and feeds.id > ?", params[:id].to_i)                                                                              |
+| Medium     | FeedsController | find_old | SQL Injection | Possible SQL injection near line 40: Feed.joins(:user).where("user_id IN (#{+scope_user_ids.join(", ")+}) and feeds.id < ?", params[:id].to_i)                                                                              |
+| Weak       | IconsController | create   | File Access   | Parameter value used in file name near line 13: FileUtils.mv(image_+params+(+params+).tempfile, "#{Rails.root}/public/icons/#{"#{SecureRandom.uuid}#{File.extname(image_+params+(+params+).original_filename.downcase)}"}") |
++------------+-----------------+----------+---------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 Controller Warnings:
 
