@@ -6,8 +6,9 @@ class IconsController < ApplicationController
   def create
     file_name = image_params(params).original_filename.downcase
     mime_type = image_params(params).content_type.downcase
-    if !!file_name.match(/png|jpeg|jpg|gif/) and mime_type.start_with? 'image/'
-      dest_file_name = "#{SecureRandom.uuid}#{File.extname(file_name)}"
+    extension_name = File.extname(file_name)
+    if !!extension_name.match(/\A\.(png|jpeg|jpg|gif)\z/) and mime_type.start_with? 'image/'
+      dest_file_name = "#{SecureRandom.uuid}#{extension_name}"
       image_path = "#{Rails.root}/public/icons/#{dest_file_name}"
       FileUtils.mv image_params(params).tempfile, image_path
       FileUtils.chmod 0644, image_path
