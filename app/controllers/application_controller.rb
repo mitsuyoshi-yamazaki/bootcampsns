@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
     logger.info "--HEADERS--"
     request.headers.sort.map { |k, v| logger.info "#{k}:#{v}" if k.start_with? "HTTP" }
     logger.info "--BODY--"
-    logger.info(request.body.string)
+    logger.info(request.body.to_s)
     logger.info "--/BODY--"
   end
 
