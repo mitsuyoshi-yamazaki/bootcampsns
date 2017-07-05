@@ -2,7 +2,7 @@
 lock "3.8.2"
 
 set :application, "bootcampsns"
-set :repo_url, "git@github.com:speee/bootcampsns.git"
+set :repo_url, "git@github.com:mitsuyoshi-yamazaki/bootcampsns.git"
 set :branch, ENV['branch'] || 'master'
 set :deploy_to, "/home/apprunner/bootcampsns"
 set :pty, true
