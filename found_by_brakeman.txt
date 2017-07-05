@@ -1,0 +1,56 @@
+
++BRAKEMAN REPORT+
+
+Application path: /Users/mitsuyoshi.yamazaki/Documents/projects/bootcampsns
+Rails version: 4.2.8
+Brakeman version: 3.7.0
+Started at 2017-07-05 11:26:48 +0900
+Duration: 0.228353 seconds
+Checks run: BasicAuth, BasicAuthTimingAttack, ContentTag, CreateWith, CrossSiteScripting, DefaultRoutes, Deserialize, DetailedExceptions, DigestDoS, DynamicFinders, EscapeFunction, Evaluation, Execute, FileAccess, FileDisclosure, FilterSkipping, ForgerySetting, HeaderDoS, I18nXSS, JRubyXML, JSONEncoding, JSONParsing, LinkTo, LinkToHref, MailTo, MassAssignment, MimeTypeDoS, ModelAttrAccessible, ModelAttributes, ModelSerialize, NestedAttributes, NestedAttributesBypass, NumberToCurrency, QuoteTableName, Redirect, RegexDoS, Render, RenderDoS, RenderInline, ResponseSplitting, RouteDoS, SQL, SQLCVEs, SSLVerify, SafeBufferManipulation, SanitizeMethods, SelectTag, SelectVulnerability, Send, SendFile, SessionManipulation, SessionSettings, SimpleFormat, SingleQuotes, SkipBeforeFilter, StripTags, SymbolDoSCVE, TranslateBug, UnsafeReflection, ValidationRegex, WithoutProtection, XMLDoS, YAMLParsing
+
+
++SUMMARY+
+
++-------------------+-------+
+| Scanned/Reported  | Total |
++-------------------+-------+
+| Controllers       | 6     |
+| Models            | 3     |
+| Templates         | 2     |
+| Errors            | 0     |
+| Security Warnings | 9 (5) |
++-------------------+-------+
+
++----------------------------+-------+
+| Warning Type               | Total |
++----------------------------+-------+
+| Command Injection          | 1     |
+| Cross-Site Request Forgery | 1     |
+| File Access                | 2     |
+| SQL Injection              | 4     |
+| Session Setting            | 1     |
++----------------------------+-------+
+
+
++SECURITY WARNINGS+
+
++------------+--------------------+----------+-------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Confidence | Class              | Method   | Warning Type      | Message                                                                                                                                                                                                                                                                                                                                                          |
++------------+--------------------+----------+-------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| High       | IconsController    | create   | Command Injection | Possible command injection near line 12: `convert -resize #{params[:resize_max_pixel]}x#{params[:resize_max_pixel]} #{"#{Rails.root}/public/icons/#{"#{SecureRandom.uuid}#{File.extname(+params[:image].original_filename.downcase+)}"}"} #{"#{Rails.root}/public/icons/#{"#{SecureRandom.uuid}#{File.extname(+params[:image].original_filename.downcase+)}"}"}` |
+| High       | IconsController    | create   | File Access       | Parameter value used in file name near line 9: FileUtils.mv(+params[:image].tempfile+, "#{Rails.root}/public/icons/#{"#{SecureRandom.uuid}#{File.extname(params[:image].original_filename.downcase)}"}")                                                                                                                                                         |
+| High       | SessionsController | create   | SQL Injection     | Possible SQL injection near line 6: User.find_by("user='#{+params[:user]+}' and pass='#{Digest::MD5.hexdigest(params[:pass])}'")                                                                                                                                                                                                                                 |
+| High       |                    |          | Session Setting   | Session secret should not be included in version control near line 2                                                                                                                                                                                                                                                                                             |
+| Medium     | UsersController    | icon     | File Access       | Model attribute used in file name near line 17: File.read("#{Rails.root}/public/icons/#{+User.find(params[:id])[:icon_file_name]+}", :disposition => "inline")                                                                                                                                                                                                   |
+| Medium     | FeedsController    | index    | SQL Injection     | Possible SQL injection near line 29: Feed.joins(:user).where("user_id IN (#{+scope_user_ids.join(", ")+})")                                                                                                                                                                                                                                                      |
+| Medium     | FeedsController    | find_new | SQL Injection     | Possible SQL injection near line 34: Feed.joins(:user).where("user_id IN (#{+scope_user_ids.join(", ")+}) and feeds.id > ?", params[:id].to_i)                                                                                                                                                                                                                   |
+| Medium     | FeedsController    | find_old | SQL Injection     | Possible SQL injection near line 40: Feed.joins(:user).where("user_id IN (#{+scope_user_ids.join(", ")+}) and feeds.id < ?", params[:id].to_i)                                                                                                                                                                                                                   |
++------------+--------------------+----------+-------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Controller Warnings:
+
++------------+-----------------------+----------------------------+------------------------------------------------------------------------------+
+| Confidence | Controller            | Warning Type               | Message                                                                      |
++------------+-----------------------+----------------------------+------------------------------------------------------------------------------+
+| High       | ApplicationController | Cross-Site Request Forgery | 'protect_from_forgery' should be called in ApplicationController near line 2 |
++------------+-----------------------+----------------------------+------------------------------------------------------------------------------+

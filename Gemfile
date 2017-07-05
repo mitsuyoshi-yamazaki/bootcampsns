@@ -39,6 +39,7 @@ group :development, :test do
   gem 'rbnacl', '< 5.0', '>= 3.2'
   gem 'rbnacl-libsodium'
   gem 'bcrypt_pbkdf', '< 2.0', '>= 1.0'
+  gem 'brakeman', require: false
 end
 
 group :development do
