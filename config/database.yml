@@ -27,4 +27,4 @@ production:
   pool: 5
   username: root
   password: root
-  host: localhost
+  socket: /var/run/mysqld/mysqld.sock

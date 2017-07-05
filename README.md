@@ -8,10 +8,10 @@ DO NOT use any portion of the code for production.
 Running the code
 ----------------
 
-```shell
-  git clone https://github.com/nishimunea/bootcampsns.git
-  cd bootcampsns/
-  bundle install
-  rake db:migrate
-  rails s
-  ```
+```console
+$ git clone https://github.com/speee/bootcampsns.git
+$ cd bootcampsns/
+$ bundle install
+$ rake db:migrate
+$ rails s
+```
