@@ -1,6 +1,7 @@
 
 class ApplicationController < ActionController::Base
   before_action :reject_cross_origin_request, except: [:icon, :manage]
+  before_action :whole_log
 
   @current_user = nil
 
@@ -28,6 +29,14 @@ class ApplicationController < ActionController::Base
 
   def reject_non_admin_user
     render :nothing => true, :status => :forbidden and return unless @current_user.admin?
+  end
+
+  def whole_log
+    logger.info "--HEADERS--"
+    request.headers.sort.map { |k, v| logger.info "#{k}:#{v}" if k.start_with? "HTTP" }
+    logger.info "--BODY--"
+    logger.info(request.body.string)
+    logger.info "--/BODY--"
   end
 
 end
