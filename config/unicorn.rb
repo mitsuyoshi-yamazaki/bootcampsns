@@ -3,8 +3,8 @@ app_path = '/home/apprunner/bootcampsns'
 working_directory "#{app_path}/current"
 pid "#{app_path}/shared/tmp/pids/unicorn.pid"
 listen "#{app_path}/shared/tmp/sockets/unicorn.sock"
-stderr_path 'log/unicorn.std.log'
-stdout_path 'log/unicorn.err.log'
+stderr_path 'log/unicorn.err.log'
+stdout_path 'log/unicorn.std.log'
 
 before_exec do |server|
   ENV['BUNDLE_GEMFILE'] = "#{app_path}/current/Gemfile"
